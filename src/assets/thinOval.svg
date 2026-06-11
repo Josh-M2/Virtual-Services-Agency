@@ -1,0 +1,17 @@
+<svg
+  width="500"
+  height="120"
+  viewBox="0 0 500 120"
+  fill="none"
+  xmlns="http://www.w3.org/2000/svg"
+>
+  <ellipse
+    cx="250"
+    cy="60"
+    rx="220"
+    ry="35"
+    stroke="black"
+    stroke-opacity="0.15"
+    stroke-width="1"
+  />
+</svg>
