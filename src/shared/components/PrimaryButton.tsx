@@ -17,8 +17,8 @@ const PrimaryButton = ({
 }: PrimaryButtonProps) => {
   const classes =
     variant === "solid"
-      ? "rounded-xl border-0 bg-primary-gradient px-8 py-3 font-semibold text-white shadow-md transition hover:scale-105 hover:shadow-lg"
-      : "rounded-lg border border-transparent bg-white px-6 py-3 font-bold transition hover:scale-105";
+      ? "inline-flex items-center justify-center rounded-xl border-0 bg-primary-gradient px-8 py-3 font-semibold text-white shadow-md transition-transform duration-200 ease-out hover:scale-105 hover:shadow-lg"
+      : "inline-flex items-center justify-center rounded-lg border border-transparent bg-white px-6 py-3 font-bold transition-transform duration-200 ease-out hover:scale-105";
   const content =
     variant === "outline" ? (
       <span className="bg-primary-gradient bg-clip-text text-transparent">
@@ -37,7 +37,11 @@ const PrimaryButton = ({
   }
 
   return (
-    <button type="button" onClick={onClick} className={`${classes} ${className}`}>
+    <button
+      type="button"
+      onClick={onClick}
+      className={`${classes} ${className}`}
+    >
       {content}
     </button>
   );

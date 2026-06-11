@@ -24,6 +24,7 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 button {
@@ -35,4 +36,80 @@ button {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
+}
+
+.hero-word-roller {
+  display: inline-flex;
+  height: 1.6em;
+  min-width: 9.75rem;
+  overflow: hidden;
+  justify-content: center;
+
+  color: #000000;
+  font-weight: 700;
+  line-height: 1.6em;
+  vertical-align: middle;
+}
+
+.hero-word-roller__track {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  animation: hero-word-roll 12s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+.hero-word-roller__track span {
+  display: block;
+  height: 1.6em;
+  white-space: nowrap;
+}
+
+@keyframes hero-word-roll {
+  0%,
+  8% {
+    transform: translateY(0);
+  }
+  12.5%,
+  20.5% {
+    transform: translateY(-1.6em);
+  }
+  25%,
+  33% {
+    transform: translateY(-3.2em);
+  }
+  37.5%,
+  45.5% {
+    transform: translateY(-4.8em);
+  }
+  50%,
+  58% {
+    transform: translateY(-6.4em);
+  }
+  62.5%,
+  70.5% {
+    transform: translateY(-8em);
+  }
+  75%,
+  83% {
+    transform: translateY(-9.6em);
+  }
+  87.5%,
+  95.5% {
+    transform: translateY(-11.2em);
+  }
+  100% {
+    transform: translateY(-12.8em);
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-word-roller {
+    min-width: 8.5rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-word-roller__track {
+    animation: none;
+  }
 }

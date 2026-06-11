@@ -1,5 +1,6 @@
 import { pricingPlans, type PricingPlan } from "../data/pricingPlans";
 import PrimaryButton from "../../../shared/components/PrimaryButton";
+import RevealContent from "../../../shared/components/RevealContent";
 import { primaryCta } from "../../../shared/config/site";
 
 const CheckIcon = () => (
@@ -19,13 +20,18 @@ const CheckIcon = () => (
   </svg>
 );
 
-const PricingCard = ({ plan }: { plan: PricingPlan }) => {
+const PricingCard = ({ plan, index }: { plan: PricingPlan; index: number }) => {
   const handleCheckout = () => {
     window.location.href = plan.checkoutUrl;
   };
 
   return (
-    <article className="relative flex h-full w-full flex-col rounded-xl bg-white p-6 text-center shadow-lg transition hover:shadow-xl">
+    <RevealContent
+      as="article"
+      direction="left"
+      delay={index * 0.1}
+      className="relative flex h-full w-full flex-col rounded-xl bg-white p-5 text-center shadow-lg transition hover:shadow-xl sm:p-6"
+    >
       {plan.featured && (
         <div className="pointer-events-none absolute inset-0 rounded-xl bg-primary-gradient p-[1px]">
           <div className="h-full w-full rounded-xl bg-white" />
@@ -65,15 +71,15 @@ const PricingCard = ({ plan }: { plan: PricingPlan }) => {
           </PrimaryButton>
         </div>
       </div>
-    </article>
+    </RevealContent>
   );
 };
 
 const PricingCards = () => {
   return (
-    <div className="mx-auto sm:my-12 md:my-16 grid w-full max-w-6xl grid-cols-1 gap-6  md:grid-cols-4">
-      {pricingPlans.map((plan) => (
-        <PricingCard key={plan.name} plan={plan} />
+    <div className="mx-auto my-10 grid w-full max-w-6xl grid-cols-1 gap-6 sm:my-12 sm:grid-cols-2 md:my-16 xl:grid-cols-4">
+      {pricingPlans.map((plan, index) => (
+        <PricingCard key={plan.name} plan={plan} index={index} />
       ))}
     </div>
   );

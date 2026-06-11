@@ -1,5 +1,7 @@
 # Client Codebase Documentation
 
+These notes explain how the client is put together for future contributors. For setup commands and the shorter client overview, see [README.md](README.md). For the full repository entry point shown on GitHub, see the root [README.md](../README.md).
+
 ## Architecture
 
 The client is organized around feature modules plus shared UI:
@@ -29,6 +31,8 @@ When adding a route:
 3. Add the route element in `src/app/App.tsx`.
 4. Add the route to `navLinks` only if it should appear globally.
 
+Current route note: `Contact` exists in `site.ts` and appears in navigation data, but `src/app/App.tsx` only registers `/home` and `/price` right now. Add a contact page before relying on `/contact` as a working URL.
+
 ## Shared Components
 
 Reusable shared components live in `src/shared/components`.
@@ -36,6 +40,7 @@ Reusable shared components live in `src/shared/components`.
 - `NavigationBar.tsx` renders desktop and mobile navigation from `navLinks`.
 - `Footer.tsx` renders brand, navigation, service links, and contact details.
 - `PrimaryButton.tsx` renders consistent CTA buttons as either links or buttons.
+- `RevealContent.tsx` renders reusable scroll-aware entrance and exit motion.
 - `SectionHeader.tsx` renders common section headings and optional descriptions.
 
 Use shared components when styling or behavior should stay consistent across pages. Keep components inside a feature folder when they are only useful to that feature.
@@ -66,6 +71,8 @@ Repeated lists are sourced from `homeContent.ts`:
 
 To add a service card, add an item to `services`. To add a benefit or step, update the relevant array.
 
+Home is responsive by default: mobile uses single-column stacks, tablet promotes service cards and pricing-style content to two-column layouts where appropriate, and desktop uses wider multi-column layouts. Section content is wrapped with `RevealContent` so alternating sections move in opposite directions while numbered items can stagger independently.
+
 ## Pricing Feature
 
 Pricing page implementation lives in `src/features/pricing`.
@@ -87,6 +94,8 @@ features/pricing/
 
 `PricingCards.tsx` renders every plan from `pricingPlans`, so new pricing tiers should be added in data rather than by copying JSX.
 
+Pricing cards are responsive: one column on mobile, two columns on tablet, and four columns on wide desktop. Cards are individually animated with small staggered delays.
+
 ## Styling
 
 Tailwind CSS is the primary styling system.
@@ -95,8 +104,15 @@ Tailwind CSS is the primary styling system.
 - App-level shell styles are in `src/app/App.css`.
 - The brand gradient is configured as `bg-primary-gradient` in `tailwind.config.js`.
 - The Montserrat font family token is configured as `font-montserrat`.
+- Hero rolling word animation keyframes are defined in `src/index.css`.
 
 Prefer Tailwind utility classes for component styling. Use CSS files only for true global or app-shell concerns.
+
+## Motion Guidelines
+
+Use `RevealContent` for section-level content items that should animate on scroll. Pass `direction="right"` when content should enter from the right and exit left, and `direction="left"` when it should enter from the left and exit right. Use the `delay` prop for asynchronous numbered steps or pricing cards.
+
+Keep hero and navigation page-load animation local to their components because those animations are tied to initial page visit timing rather than scroll position.
 
 ## Assets
 
@@ -115,3 +131,9 @@ src/features/new-feature/
 ```
 
 Keep route wrappers in `src/pages` thin. Put reusable pieces in `src/shared/components` only after they are useful across more than one feature.
+
+## Documentation Links
+
+- Root GitHub README: [../README.md](../README.md)
+- Client setup README: [README.md](README.md)
+- Client architecture notes: this file
